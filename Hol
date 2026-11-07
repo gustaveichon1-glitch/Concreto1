@@ -1,0 +1,24 @@
+const mineflayer = require('mineflayer')
+
+function crearBot() {
+  const bot = mineflayer.createBot({
+    host: 'IP_DE_TU_SERVIDOR',  // <-- BORRA Y PON LA IP DE TU OUIHEBERG AQUÍ
+    port: 25565,                 // <-- SI TU PUERTO NO ES 25565, CAMBIALO AQUÍ
+    username: 'Guardian247',     // El nombre que tendrá tu bot en el juego
+    version: '1.20.1'            // <-- CAMBIA POR LA VERSIÓN DE TU SERVIDOR
+  })
+
+  bot.on('spawn', () => {
+    console.log('¡Bot conectado exitosamente al servidor!')
+  })
+
+  // Si el servidor se reinicia, el bot vuelve a entrar solo en 15 segundos
+  bot.on('end', () => {
+    console.log('Desconectado. Reconectando...');
+    setTimeout(crearBot, 15000);
+  });
+
+  bot.on('error', (err) => console.log('Error del bot:', err));
+}
+
+crearBot();
